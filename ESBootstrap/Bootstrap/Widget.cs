@@ -21,7 +21,17 @@ namespace ESBootstrap
         {
             HasAdded = true;
         }
-        
+
+        public void Focus()
+        {
+            this.Content.Focus();
+        }
+
+        public void Blur()
+        {
+            this.Content.Blur();
+        }
+
         public string Id
 		{
 			get { return Content.Id; }

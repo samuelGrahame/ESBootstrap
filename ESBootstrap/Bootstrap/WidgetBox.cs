@@ -148,8 +148,12 @@ namespace ESBootstrap
 		private void CheckTextChanged()
 		{            
 			if(Text != GetAttribute("data-previousText"))
-			{
-                var action = linkedTextChangedEvents[this.Content];
+			{                
+                Action<Event> action = null;
+                if (linkedTextChangedEvents.ContainsKey(this.Content))
+                {
+                    action = linkedTextChangedEvents[this.Content];
+                }                
                 if (action != null)
                     action(new Event("onchange"));                
                 SetAttribute("data-previousText", Text);

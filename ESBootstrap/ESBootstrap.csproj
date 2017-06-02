@@ -46,7 +46,6 @@
     <Compile Include="Bootstrap\ViewPort.cs" />
     <Compile Include="Bootstrap\WidgetBox.cs" />
     <Compile Include="Bootstrap\Form.cs" />
-    <Compile Include="Bootstrap\WidgetSelection.cs" />
     <Compile Include="Bootstrap\WidgetStyle.cs" />
     <Compile Include="Bootstrap\Widget.cs" />
     <Compile Include="Bootstrap\Enums.cs" />
@@ -80,6 +79,15 @@
     <Compile Include="Panel\PanelHeading.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Table\Table.cs" />
+    <Compile Include="Table\TableBody.cs" />
+    <Compile Include="Table\TableCell.cs" />
+    <Compile Include="Table\TableFooter.cs" />
+    <Compile Include="Table\TableHeader.cs" />
+    <Compile Include="Table\TableHeaderCell.cs" />
+    <Compile Include="Table\TableHeaderRow.cs" />
+    <Compile Include="Table\TableResponsive.cs" />
+    <Compile Include="Table\TableRow.cs" />
     <Compile Include="Typography\Abbr.cs" />
     <Compile Include="Typography\Address.cs" />
     <Compile Include="Typography\Anchor.cs" />

@@ -8,11 +8,11 @@ using Bridge.Html5;
 
 namespace ESBootstrap
 {
-	public class WidgetSelection : Widget
+	public class TableResponsive : WidgetStyle
 	{
-		public WidgetSelection(params Union<string, Widget, HTMLElement>[] typos) : base(new HTMLDivElement() { ClassName = "selection" }, typos)
+		public TableResponsive(params Union<string, Widget, HTMLElement>[] typos) : base("table-responsive", typos)
 		{
-			
-		}
+
+		}		
 	}
 }
