@@ -1901,104 +1901,106 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
     });
 
     Bridge.define("ESBootstrap.Program", {
-        $main: function () {
-            var buttonClick = $asm.$.ESBootstrap.Program.f1;
+        statics: {
+            createDemo: function () {
+                var buttonClick = $asm.$.ESBootstrap.Program.f1;
 
-            ESBootstrap.Extensions.appendChildren$2(document.body, [Bridge.merge(new ESBootstrap.Navbar([new ESBootstrap.NavbarHeader([new ESBootstrap.NavbarCollapseButton("navbarContent"), new ESBootstrap.NavbarBrand("#", ["Brand"])]), new ESBootstrap.NavbarContent("navbarContent", [Bridge.merge(new ESBootstrap.UnorderedList([Bridge.merge(new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Link ", new ESBootstrap.SourceOnly(["(current)"])])]), {
-                setActive: true
-            } ), new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Link"])]), Bridge.merge(new ESBootstrap.ListItem([Bridge.merge(new ESBootstrap.Anchor("#", ["Dropdown ", new ESBootstrap.Caret()]), {
-                setDropdown: true
-            } ), Bridge.merge(new ESBootstrap.UnorderedList([new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Action"])]), new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Another Action"])]), new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Something else here"])]), Bridge.merge(new ESBootstrap.ListItem(), {
-                setDivider: true
-            } ), new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Separated link"])])]), {
-                setDropdownMenu: true
-            } )]), {
-                setDropdown: true
-            } )]), {
-                setNav: true
-            } )])]), {
-                setNavbarLocation: ESBootstrap.NavBarLocation.Fixed_Top
-            } ), new ESBootstrap.Container([new ESBootstrap.Panel(ESBootstrap.BootTheme.Default, [new ESBootstrap.PanelHeading(["Welcome to ESBootstrap"]), new ESBootstrap.PanelBody([new ESBootstrap.FormGroupList([new ESBootstrap.TextBox.$ctor1("Textbox"), new ESBootstrap.CheckBox("checkbox", true), new ESBootstrap.FormGroup([Bridge.merge(new ESBootstrap.CheckBox("checkbox-inline 1", true), {
-                setInline: true
-            } ), Bridge.merge(new ESBootstrap.CheckBox("checkbox-inline 2", true), {
-                setInline: true
-            } ), Bridge.merge(new ESBootstrap.CheckBox("checkbox-inline 3", true), {
-                setInline: true
-            } )]), new ESBootstrap.TextBox.$ctor1("11/04/2017", "date"), new ESBootstrap.TextBox.$ctor1("Password", "password"), new ESBootstrap.TextArea("TextArea", 4), new ESBootstrap.Form(ESBootstrap.BootFormType.Inline, [new ESBootstrap.Label(["Email:", new ESBootstrap.TextBox.ctor()]), new ESBootstrap.Label(["Password:", new ESBootstrap.TextBox.ctor("password")]), new ESBootstrap.CheckBox("Remeber me"), new ESBootstrap.Button.$ctor2("Submit", "submit")]), new ESBootstrap.Form(ESBootstrap.BootFormType.Horizontal, [new ESBootstrap.Label(["Email:", new ESBootstrap.TextBox.ctor()]), new ESBootstrap.Label(["Password:", new ESBootstrap.TextBox.ctor("password")]), new ESBootstrap.CheckBox("Remeber me"), new ESBootstrap.Button.$ctor2("Submit", "submit")]), Bridge.merge(new ESBootstrap.Button.$ctor3("Basic", ESBootstrap.BootTheme.None), {
-                setOnClick: buttonClick
-            } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Default", ESBootstrap.BootTheme.Default), {
-                setOnClick: buttonClick
-            } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Primary", ESBootstrap.BootTheme.Primary), {
-                setOnClick: buttonClick
-            } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Success", ESBootstrap.BootTheme.Success), {
-                setOnClick: buttonClick
-            } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Info", ESBootstrap.BootTheme.Info), {
-                setOnClick: buttonClick
-            } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Warning", ESBootstrap.BootTheme.Warning), {
-                setOnClick: buttonClick
-            } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Danger", ESBootstrap.BootTheme.Danger), {
-                setOnClick: buttonClick
-            } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Link", ESBootstrap.BootTheme.Link), {
-                setOnClick: buttonClick
-            } )]), new ESBootstrap.Heading("h2", ["Heading", new ESBootstrap.Small([" - Heading Small"])]), new ESBootstrap.ParagraphList(["Text", new ESBootstrap.Abbr("Abbr hover", ["Abbr"]), new ESBootstrap.Small(["Small"]), new ESBootstrap.Blockquote.$ctor2(new ESBootstrap.Paragraph.ctor(["Block Quote Content"]), new ESBootstrap.Footer(["Block Quote From"])), Bridge.merge(new ESBootstrap.Blockquote.$ctor2(new ESBootstrap.Paragraph.ctor(["Block Quote Content Reverse"]), new ESBootstrap.Footer(["Block Quote From Reverse"])), {
-                setReverse: true
-            } ), new ESBootstrap.DescriptionList([new ESBootstrap.DescriptionTitle(["Description Title 1"]), new ESBootstrap.DescriptionDetail(["- Description Detail 1"]), new ESBootstrap.DescriptionTitle(["Description Title 2"]), new ESBootstrap.DescriptionDetail(["- Description Detail 2"])]), new ESBootstrap.Paragraph.ctor(["The following HTML elements: ", new ESBootstrap.Code(["span"]), ", ", new ESBootstrap.Code(["section"]), ", and ", new ESBootstrap.Code(["div"]), " defines a section in a document."]), new ESBootstrap.Paragraph.ctor(["Use ", new ESBootstrap.Kbd(["ctrl + p"]), " to open the Print dialog box."]), new ESBootstrap.Pre(["Text in a pre element\r\nis displayed in a fixed-width\r\nfont, and it preserves\r\nboth      spaces and\r\nline breaks."]), new ESBootstrap.Paragraph.ctor([new ESBootstrap.ParagraphList([new ESBootstrap.Heading("h2", ["Contextual Colors"]), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text is muted."]), {
-                setContextualText: ESBootstrap.Contextual.Text.Muted
-            } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text is important."]), {
-                setContextualText: ESBootstrap.Contextual.Text.Primary
-            } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text indicates success."]), {
-                setContextualText: ESBootstrap.Contextual.Text.Success
-            } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text represents some information."]), {
-                setContextualText: ESBootstrap.Contextual.Text.Info
-            } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text represents a warning."]), {
-                setContextualText: ESBootstrap.Contextual.Text.Warning
-            } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text represents danger."]), {
-                setContextualText: ESBootstrap.Contextual.Text.Danger
-            } )])]), new ESBootstrap.Paragraph.ctor([new ESBootstrap.ParagraphList([new ESBootstrap.Heading("h2", ["Contextual Backgrounds"]), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text is important."]), {
-                setContextualBackground: ESBootstrap.Contextual.Background.Primary
-            } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text indicates success."]), {
-                setContextualBackground: ESBootstrap.Contextual.Background.Success
-            } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text represents some information."]), {
-                setContextualBackground: ESBootstrap.Contextual.Background.Info
-            } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text represents a warning."]), {
-                setContextualBackground: ESBootstrap.Contextual.Background.Warning
-            } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text represents danger."]), {
-                setContextualBackground: ESBootstrap.Contextual.Background.Danger
-            } )])])]), new ESBootstrap.Panel(ESBootstrap.BootTheme.Default, [new ESBootstrap.PanelHeading([new ESBootstrap.Heading("h3", ["Table Demo", new ESBootstrap.Small([" - Table options below."])]), new ESBootstrap.FormGroup([Bridge.merge(new ESBootstrap.CheckBox("Striped", false), {
-                onCheckChanged: $asm.$.ESBootstrap.Program.f2,
-                setInline: true
-            } ), Bridge.merge(new ESBootstrap.CheckBox("Bordered", false), {
-                onCheckChanged: $asm.$.ESBootstrap.Program.f3,
-                setInline: true
-            } ), Bridge.merge(new ESBootstrap.CheckBox("Hover", false), {
-                onCheckChanged: $asm.$.ESBootstrap.Program.f4,
-                setInline: true
-            } ), Bridge.merge(new ESBootstrap.CheckBox("Condensed", false), {
-                onCheckChanged: $asm.$.ESBootstrap.Program.f5,
-                setInline: true
-            } ), Bridge.merge(new ESBootstrap.CheckBox("Contextual classes", false), {
-                onCheckChanged: function (s) {
-                    var $t;
-                    var tbl = ESBootstrap.Widget.getWidgetById(ESBootstrap.Table, "DemoTable");
-                    if (s.getChecked()) {
-                        var body = tbl.getTableBody();
-                        body.row(0).setTheme(ESBootstrap.BootRowCellTheme.Active);
-                        body.row(2).setTheme(ESBootstrap.BootRowCellTheme.Success);
-                        body.row(4).setTheme(ESBootstrap.BootRowCellTheme.Info);
-                        body.row(6).setTheme(ESBootstrap.BootRowCellTheme.Warning);
-                        body.row(8).setTheme(ESBootstrap.BootRowCellTheme.Danger);
-                    } else {
-                        $t = Bridge.getEnumerator(tbl.getTableBody().getRows(), ESBootstrap.TableRow);
-                        while ($t.moveNext()) {
-                            var item = $t.getCurrent();
-                            item.clearTheme();
+                ESBootstrap.Extensions.appendChildren$2(document.body, [Bridge.merge(new ESBootstrap.Navbar([new ESBootstrap.NavbarHeader([new ESBootstrap.NavbarCollapseButton("navbarContent"), new ESBootstrap.NavbarBrand("#", ["Brand"])]), new ESBootstrap.NavbarContent("navbarContent", [Bridge.merge(new ESBootstrap.UnorderedList([Bridge.merge(new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Link ", new ESBootstrap.SourceOnly(["(current)"])])]), {
+                    setActive: true
+                } ), new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Link"])]), Bridge.merge(new ESBootstrap.ListItem([Bridge.merge(new ESBootstrap.Anchor("#", ["Dropdown ", new ESBootstrap.Caret()]), {
+                    setDropdown: true
+                } ), Bridge.merge(new ESBootstrap.UnorderedList([new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Action"])]), new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Another Action"])]), new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Something else here"])]), Bridge.merge(new ESBootstrap.ListItem(), {
+                    setDivider: true
+                } ), new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Separated link"])])]), {
+                    setDropdownMenu: true
+                } )]), {
+                    setDropdown: true
+                } )]), {
+                    setNav: true
+                } )])]), {
+                    setNavbarLocation: ESBootstrap.NavBarLocation.Fixed_Top
+                } ), new ESBootstrap.Container([new ESBootstrap.Panel(ESBootstrap.BootTheme.Default, [new ESBootstrap.PanelHeading(["Welcome to ESBootstrap"]), new ESBootstrap.PanelBody([new ESBootstrap.FormGroupList([new ESBootstrap.TextBox.$ctor1("Textbox"), new ESBootstrap.CheckBox("checkbox", true), new ESBootstrap.FormGroup([Bridge.merge(new ESBootstrap.CheckBox("checkbox-inline 1", true), {
+                    setInline: true
+                } ), Bridge.merge(new ESBootstrap.CheckBox("checkbox-inline 2", true), {
+                    setInline: true
+                } ), Bridge.merge(new ESBootstrap.CheckBox("checkbox-inline 3", true), {
+                    setInline: true
+                } )]), new ESBootstrap.TextBox.$ctor1("11/04/2017", "date"), new ESBootstrap.TextBox.$ctor1("Password", "password"), new ESBootstrap.TextArea("TextArea", 4), new ESBootstrap.Form(ESBootstrap.BootFormType.Inline, [new ESBootstrap.Label(["Email:", new ESBootstrap.TextBox.ctor()]), new ESBootstrap.Label(["Password:", new ESBootstrap.TextBox.ctor("password")]), new ESBootstrap.CheckBox("Remeber me"), new ESBootstrap.Button.$ctor2("Submit", "submit")]), new ESBootstrap.Form(ESBootstrap.BootFormType.Horizontal, [new ESBootstrap.Label(["Email:", new ESBootstrap.TextBox.ctor()]), new ESBootstrap.Label(["Password:", new ESBootstrap.TextBox.ctor("password")]), new ESBootstrap.CheckBox("Remeber me"), new ESBootstrap.Button.$ctor2("Submit", "submit")]), Bridge.merge(new ESBootstrap.Button.$ctor3("Basic", ESBootstrap.BootTheme.None), {
+                    setOnClick: buttonClick
+                } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Default", ESBootstrap.BootTheme.Default), {
+                    setOnClick: buttonClick
+                } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Primary", ESBootstrap.BootTheme.Primary), {
+                    setOnClick: buttonClick
+                } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Success", ESBootstrap.BootTheme.Success), {
+                    setOnClick: buttonClick
+                } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Info", ESBootstrap.BootTheme.Info), {
+                    setOnClick: buttonClick
+                } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Warning", ESBootstrap.BootTheme.Warning), {
+                    setOnClick: buttonClick
+                } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Danger", ESBootstrap.BootTheme.Danger), {
+                    setOnClick: buttonClick
+                } ), Bridge.merge(new ESBootstrap.Button.$ctor3("Link", ESBootstrap.BootTheme.Link), {
+                    setOnClick: buttonClick
+                } )]), new ESBootstrap.Heading("h2", ["Heading", new ESBootstrap.Small([" - Heading Small"])]), new ESBootstrap.ParagraphList(["Text", new ESBootstrap.Abbr("Abbr hover", ["Abbr"]), new ESBootstrap.Small(["Small"]), new ESBootstrap.Blockquote.$ctor2(new ESBootstrap.Paragraph.ctor(["Block Quote Content"]), new ESBootstrap.Footer(["Block Quote From"])), Bridge.merge(new ESBootstrap.Blockquote.$ctor2(new ESBootstrap.Paragraph.ctor(["Block Quote Content Reverse"]), new ESBootstrap.Footer(["Block Quote From Reverse"])), {
+                    setReverse: true
+                } ), new ESBootstrap.DescriptionList([new ESBootstrap.DescriptionTitle(["Description Title 1"]), new ESBootstrap.DescriptionDetail(["- Description Detail 1"]), new ESBootstrap.DescriptionTitle(["Description Title 2"]), new ESBootstrap.DescriptionDetail(["- Description Detail 2"])]), new ESBootstrap.Paragraph.ctor(["The following HTML elements: ", new ESBootstrap.Code(["span"]), ", ", new ESBootstrap.Code(["section"]), ", and ", new ESBootstrap.Code(["div"]), " defines a section in a document."]), new ESBootstrap.Paragraph.ctor(["Use ", new ESBootstrap.Kbd(["ctrl + p"]), " to open the Print dialog box."]), new ESBootstrap.Pre(["Text in a pre element\r\nis displayed in a fixed-width\r\nfont, and it preserves\r\nboth      spaces and\r\nline breaks."]), new ESBootstrap.Paragraph.ctor([new ESBootstrap.ParagraphList([new ESBootstrap.Heading("h2", ["Contextual Colors"]), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text is muted."]), {
+                    setContextualText: ESBootstrap.Contextual.Text.Muted
+                } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text is important."]), {
+                    setContextualText: ESBootstrap.Contextual.Text.Primary
+                } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text indicates success."]), {
+                    setContextualText: ESBootstrap.Contextual.Text.Success
+                } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text represents some information."]), {
+                    setContextualText: ESBootstrap.Contextual.Text.Info
+                } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text represents a warning."]), {
+                    setContextualText: ESBootstrap.Contextual.Text.Warning
+                } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text represents danger."]), {
+                    setContextualText: ESBootstrap.Contextual.Text.Danger
+                } )])]), new ESBootstrap.Paragraph.ctor([new ESBootstrap.ParagraphList([new ESBootstrap.Heading("h2", ["Contextual Backgrounds"]), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text is important."]), {
+                    setContextualBackground: ESBootstrap.Contextual.Background.Primary
+                } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text indicates success."]), {
+                    setContextualBackground: ESBootstrap.Contextual.Background.Success
+                } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text represents some information."]), {
+                    setContextualBackground: ESBootstrap.Contextual.Background.Info
+                } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text represents a warning."]), {
+                    setContextualBackground: ESBootstrap.Contextual.Background.Warning
+                } ), Bridge.merge(new ESBootstrap.Paragraph.ctor(["This text represents danger."]), {
+                    setContextualBackground: ESBootstrap.Contextual.Background.Danger
+                } )])])]), new ESBootstrap.Panel(ESBootstrap.BootTheme.Default, [new ESBootstrap.PanelHeading([new ESBootstrap.Heading("h3", ["Table Demo", new ESBootstrap.Small([" - Table options below."])]), new ESBootstrap.FormGroup([Bridge.merge(new ESBootstrap.CheckBox("Striped", false), {
+                    onCheckChanged: $asm.$.ESBootstrap.Program.f2,
+                    setInline: true
+                } ), Bridge.merge(new ESBootstrap.CheckBox("Bordered", false), {
+                    onCheckChanged: $asm.$.ESBootstrap.Program.f3,
+                    setInline: true
+                } ), Bridge.merge(new ESBootstrap.CheckBox("Hover", false), {
+                    onCheckChanged: $asm.$.ESBootstrap.Program.f4,
+                    setInline: true
+                } ), Bridge.merge(new ESBootstrap.CheckBox("Condensed", false), {
+                    onCheckChanged: $asm.$.ESBootstrap.Program.f5,
+                    setInline: true
+                } ), Bridge.merge(new ESBootstrap.CheckBox("Contextual classes", false), {
+                    onCheckChanged: function (s) {
+                        var $t;
+                        var tbl = ESBootstrap.Widget.getWidgetById(ESBootstrap.Table, "DemoTable");
+                        if (s.getChecked()) {
+                            var body = tbl.getTableBody();
+                            body.row(0).setTheme(ESBootstrap.BootRowCellTheme.Active);
+                            body.row(2).setTheme(ESBootstrap.BootRowCellTheme.Success);
+                            body.row(4).setTheme(ESBootstrap.BootRowCellTheme.Info);
+                            body.row(6).setTheme(ESBootstrap.BootRowCellTheme.Warning);
+                            body.row(8).setTheme(ESBootstrap.BootRowCellTheme.Danger);
+                        } else {
+                            $t = Bridge.getEnumerator(tbl.getTableBody().getRows(), ESBootstrap.TableRow);
+                            while ($t.moveNext()) {
+                                var item = $t.getCurrent();
+                                item.clearTheme();
+                            }
                         }
-                    }
-                },
-                setInline: true
-            } )])]), new ESBootstrap.PanelBody([Bridge.merge(new ESBootstrap.Table([new ESBootstrap.TableHeader([new ESBootstrap.TableHeaderRow.ctor(["#", "Table heading", "Table heading", "Table heading", "Table heading", "Table heading", "Table heading"])]), new ESBootstrap.TableBody(System.Linq.Enumerable.range(0, 9).select($asm.$.ESBootstrap.Program.f6).toArray())]), {
-                setId: "DemoTable"
-            } )]), new ESBootstrap.PanelFooter([new ESBootstrap.Heading("h3", ["How to access the table."]), new ESBootstrap.Pre(["var tbl = Widget.GetWidgetById<Table>(\"DemoTable\");\r\nvar body = tbl.TableBody;\r\nbody.Row(0).Theme = BootRowCellTheme.Active;\r\nbody.Row(2).Theme = BootRowCellTheme.Success;\r\nbody.Row(4).Theme = BootRowCellTheme.Info;\r\nbody.Row(6).Theme = BootRowCellTheme.Warning;\r\nbody.Row(8).Theme = BootRowCellTheme.Danger;\r\n"])])])]), new ESBootstrap.PanelFooter(["Footer"])])])]);
+                    },
+                    setInline: true
+                } )])]), new ESBootstrap.PanelBody([Bridge.merge(new ESBootstrap.Table([new ESBootstrap.TableHeader([new ESBootstrap.TableHeaderRow.ctor(["#", "Table heading", "Table heading", "Table heading", "Table heading", "Table heading", "Table heading"])]), new ESBootstrap.TableBody(System.Linq.Enumerable.range(0, 9).select($asm.$.ESBootstrap.Program.f6).toArray())]), {
+                    setId: "DemoTable"
+                } )]), new ESBootstrap.PanelFooter([new ESBootstrap.Heading("h3", ["How to access the table."]), new ESBootstrap.Pre(["var tbl = Widget.GetWidgetById<Table>(\"DemoTable\");\r\nvar body = tbl.TableBody;\r\nbody.Row(0).Theme = BootRowCellTheme.Active;\r\nbody.Row(2).Theme = BootRowCellTheme.Success;\r\nbody.Row(4).Theme = BootRowCellTheme.Info;\r\nbody.Row(6).Theme = BootRowCellTheme.Warning;\r\nbody.Row(8).Theme = BootRowCellTheme.Danger;\r\n"])])])]), new ESBootstrap.PanelFooter(["Footer"])])])]);
+            }
         }
     });
 
