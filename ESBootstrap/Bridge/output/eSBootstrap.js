@@ -1877,7 +1877,9 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
         $kind: "enum",
         statics: {
             None: 0,
-            Static_Top: 1
+            Fixed_Top: 1,
+            Fixed_Bottom: 2,
+            Static_Top: 3
         }
     });
 
@@ -1902,9 +1904,21 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
         $main: function () {
             var buttonClick = $asm.$.ESBootstrap.Program.f1;
 
-            document.head.appendChild(ESBootstrap.Widget.op_Implicit(new ESBootstrap.Viewport()));
-
-            document.body.appendChild(ESBootstrap.Widget.op_Implicit(new ESBootstrap.Container([new ESBootstrap.Panel(ESBootstrap.BootTheme.Default, [new ESBootstrap.PanelHeading(["Welcome to ESBootstrap"]), new ESBootstrap.PanelBody([new ESBootstrap.FormGroupList([new ESBootstrap.TextBox.$ctor1("Textbox"), new ESBootstrap.CheckBox("checkbox", true), new ESBootstrap.FormGroup([Bridge.merge(new ESBootstrap.CheckBox("checkbox-inline 1", true), {
+            ESBootstrap.Extensions.appendChildren$2(document.body, [Bridge.merge(new ESBootstrap.Navbar([new ESBootstrap.NavbarHeader([new ESBootstrap.NavbarCollapseButton("navbarContent"), new ESBootstrap.NavbarBrand("#", ["Brand"])]), new ESBootstrap.NavbarContent("navbarContent", [Bridge.merge(new ESBootstrap.UnorderedList([Bridge.merge(new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Link ", new ESBootstrap.SourceOnly(["(current)"])])]), {
+                setActive: true
+            } ), new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Link"])]), Bridge.merge(new ESBootstrap.ListItem([Bridge.merge(new ESBootstrap.Anchor("#", ["Dropdown ", new ESBootstrap.Caret()]), {
+                setDropdown: true
+            } ), Bridge.merge(new ESBootstrap.UnorderedList([new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Action"])]), new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Another Action"])]), new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Something else here"])]), Bridge.merge(new ESBootstrap.ListItem(), {
+                setDivider: true
+            } ), new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Separated link"])])]), {
+                setDropdownMenu: true
+            } )]), {
+                setDropdown: true
+            } )]), {
+                setNav: true
+            } )])]), {
+                setNavbarLocation: ESBootstrap.NavBarLocation.Fixed_Top
+            } ), new ESBootstrap.Container([new ESBootstrap.Panel(ESBootstrap.BootTheme.Default, [new ESBootstrap.PanelHeading(["Welcome to ESBootstrap"]), new ESBootstrap.PanelBody([new ESBootstrap.FormGroupList([new ESBootstrap.TextBox.$ctor1("Textbox"), new ESBootstrap.CheckBox("checkbox", true), new ESBootstrap.FormGroup([Bridge.merge(new ESBootstrap.CheckBox("checkbox-inline 1", true), {
                 setInline: true
             } ), Bridge.merge(new ESBootstrap.CheckBox("checkbox-inline 2", true), {
                 setInline: true
@@ -1984,7 +1998,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
                 setInline: true
             } )])]), new ESBootstrap.PanelBody([Bridge.merge(new ESBootstrap.Table([new ESBootstrap.TableHeader([new ESBootstrap.TableHeaderRow.ctor(["#", "Table heading", "Table heading", "Table heading", "Table heading", "Table heading", "Table heading"])]), new ESBootstrap.TableBody(System.Linq.Enumerable.range(0, 9).select($asm.$.ESBootstrap.Program.f6).toArray())]), {
                 setId: "DemoTable"
-            } )]), new ESBootstrap.PanelFooter([new ESBootstrap.Heading("h3", ["How to access the table."]), new ESBootstrap.Pre(["var tbl = Widget.GetWidgetById<Table>(\"DemoTable\");\r\nvar body = tbl.TableBody;\r\nbody.Row(0).Theme = BootRowCellTheme.Active;\r\nbody.Row(2).Theme = BootRowCellTheme.Success;\r\nbody.Row(4).Theme = BootRowCellTheme.Info;\r\nbody.Row(6).Theme = BootRowCellTheme.Warning;\r\nbody.Row(8).Theme = BootRowCellTheme.Danger;\r\n"])])])]), new ESBootstrap.PanelFooter(["Footer"])])])));
+            } )]), new ESBootstrap.PanelFooter([new ESBootstrap.Heading("h3", ["How to access the table."]), new ESBootstrap.Pre(["var tbl = Widget.GetWidgetById<Table>(\"DemoTable\");\r\nvar body = tbl.TableBody;\r\nbody.Row(0).Theme = BootRowCellTheme.Active;\r\nbody.Row(2).Theme = BootRowCellTheme.Success;\r\nbody.Row(4).Theme = BootRowCellTheme.Info;\r\nbody.Row(6).Theme = BootRowCellTheme.Warning;\r\nbody.Row(8).Theme = BootRowCellTheme.Danger;\r\n"])])])]), new ESBootstrap.PanelFooter(["Footer"])])])]);
         }
     });
 
@@ -3229,36 +3243,8 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             if (typos === void 0) { typos = []; }
 
             this.$initialize();
-            ESBootstrap.Widget.ctor.call(this, document.createElement("nav"));
+            ESBootstrap.Widget.ctor.call(this, document.createElement("nav"), [new ESBootstrap.Container(typos)]);
             this.content.className = "navbar navbar-default";
-
-            var container = (new ESBootstrap.WidgetStyle("container-fluid"));
-
-            ESBootstrap.Widget.appendTypos$1(container, typos);
-
-            this.content.appendChild(ESBootstrap.Widget.op_Implicit(container));
-
-            //this.Content.AddEventListener(EventType.MouseDown, (ev) => {
-            //	 ev.StopPropagation();
-
-            //	var x = BootWindowHandle;
-            //	var y = Form.GetActiveFormCollection();
-
-            //	for(int i = 0; i < y.VisibleForms.Count; i++)
-            //	{
-            //		if(Global.ParseInt(y.VisibleForms[i].Body.GetAttribute("bsh")) == x)
-            //		{
-            //			Form.ActiveForm = y.VisibleForms[i];
-            //			return;
-            //		}
-            //	}
-            //	if(Global.ParseInt(y.FormOwner.Body.GetAttribute("bsh")) == x)
-            //	{
-            //		Form.ActiveForm = y.FormOwner;
-            //	}				
-            //});
-            //this.Content.AddEventListener(EventType.MouseMove, (ev) => { ev.StopPropagation(); });
-            //this.Content.AddEventListener(EventType.MouseUp, (ev) => { ev.StopPropagation(); });
         },
         getTheme: function () {
             return this.getEnumClassValue$1(ESBootstrap.NavBarTheme);
@@ -3286,6 +3272,12 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
                 this.clearEnumClassValue("navbar-", ESBootstrap.NavBarLocation);
             } else {
                 this.setEnumClassValue("navbar-", ESBootstrap.NavBarLocation, System.String.replaceAll(System.Enum.format(ESBootstrap.NavBarLocation, value, "G").toLowerCase(), "_", "-"));
+
+                if (this.getNavbarLocation() === ESBootstrap.NavBarLocation.Fixed_Top) {
+                    document.body.style.paddingTop = "70px";
+                } else if (this.getNavbarLocation() === ESBootstrap.NavBarLocation.Fixed_Bottom) {
+                    document.body.style.paddingBottom = "70px";
+                }
             }
         },
         getClassTrue$1: function (classStr) {
@@ -3906,7 +3898,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             if (initial_scale === void 0) { initial_scale = "1"; }
             if (maximum_scale === void 0) { maximum_scale = "1"; }
             if (user_scalable === void 0) { user_scalable = ""; }
-            this.setAttribute("content", System.String.format("width ={0}, initial-scale=1{1}", width, (Bridge.referenceEquals(user_scalable, "no") ? ", user-scalable=no" : "")));
+            this.setAttribute("content", System.String.format("width={0}, initial-scale=1{1}", width, (Bridge.referenceEquals(user_scalable, "no") ? ", user-scalable=no" : "")));
         },
         getContent: function () {
             return this.getAttribute("content");
@@ -4128,7 +4120,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             if (typos === void 0) { typos = []; }
 
             this.$initialize();
-            ESBootstrap.WidgetStyle.ctor.call(this, "container", typos);
+            ESBootstrap.WidgetStyle.ctor.call(this, "container-fluid", typos);
 
         },
         getFluid: function () {

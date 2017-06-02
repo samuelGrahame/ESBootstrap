@@ -10,37 +10,9 @@ namespace ESBootstrap
 {
 	public class Navbar : Widget
 	{
-		public Navbar(params Union<string, Widget, HTMLElement>[] typos) : base(Document.CreateElement("nav"))
+		public Navbar(params Union<string, Widget, HTMLElement>[] typos) : base(Document.CreateElement("nav"), new Container(typos))
 		{
-			Content.ClassName = "navbar navbar-default";
-
-			var container = (new WidgetStyle("container-fluid"));
-			
-			AppendTypos(container, typos);
-
-			Content.AppendChild(container);
-
-			//this.Content.AddEventListener(EventType.MouseDown, (ev) => {
-			//	 ev.StopPropagation();
-
-			//	var x = BootWindowHandle;
-			//	var y = Form.GetActiveFormCollection();
-
-			//	for(int i = 0; i < y.VisibleForms.Count; i++)
-			//	{
-			//		if(Global.ParseInt(y.VisibleForms[i].Body.GetAttribute("bsh")) == x)
-			//		{
-			//			Form.ActiveForm = y.VisibleForms[i];
-			//			return;
-			//		}
-			//	}
-			//	if(Global.ParseInt(y.FormOwner.Body.GetAttribute("bsh")) == x)
-			//	{
-			//		Form.ActiveForm = y.FormOwner;
-			//	}				
-			//});
-			//this.Content.AddEventListener(EventType.MouseMove, (ev) => { ev.StopPropagation(); });
-			//this.Content.AddEventListener(EventType.MouseUp, (ev) => { ev.StopPropagation(); });
+			Content.ClassName = "navbar navbar-default";		
 		}
 
 		public NavBarTheme Theme
@@ -97,7 +69,15 @@ namespace ESBootstrap
 				else
 				{
 					SetEnumClassValue("navbar-", typeof(NavBarLocation), value.ToString("G").ToLower().Replace("_", "-"));
-				}
+
+                    if(NavbarLocation == NavBarLocation.Fixed_Top)
+                    {                        
+                        Document.Body.Style.PaddingTop = "70px";
+                    }else if (NavbarLocation == NavBarLocation.Fixed_Bottom)
+                    {                        
+                        Document.Body.Style.PaddingBottom = "70px";
+                    }
+                }
 			}
 		}
 	}

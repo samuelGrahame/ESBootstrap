@@ -10,7 +10,7 @@ namespace ESBootstrap
 {
     public class Container : WidgetStyle
     {
-        public Container(params Union<string, Widget, HTMLElement>[] typos) : base("container", typos)
+        public Container(params Union<string, Widget, HTMLElement>[] typos) : base("container-fluid", typos)
         {
             
         }

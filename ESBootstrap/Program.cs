@@ -13,38 +13,79 @@ namespace ESBootstrap
         public static void Main()
         {
             Action<MouseEvent> buttonClick = (ev) => { Global.Alert(ev.CurrentTarget.As<HTMLElement>().InnerHTML); };
-
-            Document.Head.AppendChild(new Viewport());
-
-            Document.Body.AppendChild(
-                new Container(
-                    new Panel(BootTheme.Default,
+            
+            Document.Body.AppendChildren(
+                new Navbar
+                (
+                    new NavbarHeader
+                    (
+                        new NavbarCollapseButton("navbarContent"),
+                        new NavbarBrand("#", "Brand")
+                    ),
+                    new NavbarContent
+                    (
+                        "navbarContent",
+                        new UnorderedList
+                        (
+                            new ListItem(new Anchor("#", "Link ", new SourceOnly("(current)"))) { Active = true },
+                            new ListItem(new Anchor("#", "Link")),
+                            new ListItem
+                            (
+                                new Anchor("#", "Dropdown ", new Caret()) { Dropdown = true },
+                                new UnorderedList
+                                (
+                                    new ListItem(new Anchor("#", "Action")),
+                                    new ListItem(new Anchor("#", "Another Action")),
+                                    new ListItem(new Anchor("#", "Something else here")),
+                                    new ListItem() { Divider = true },
+                                    new ListItem(new Anchor("#", "Separated link"))
+                                )
+                                { DropdownMenu = true }
+                            )
+                            { Dropdown = true }
+                        )
+                        { Nav = true }
+                    )
+                )
+                { NavbarLocation = NavBarLocation.Fixed_Top },
+                new Container
+                (
+                    new Panel
+                    (
+                        BootTheme.Default,
                         new PanelHeading("Welcome to ESBootstrap"),
-                        new PanelBody(
-                            new FormGroupList(
+                        new PanelBody
+                        (
+                            new FormGroupList
+                            (
                                     new TextBox("Textbox"),
                                     new CheckBox("checkbox", true),
-                                    new FormGroup(
+                                    new FormGroup
+                                    (
                                         new CheckBox("checkbox-inline 1", true) { Inline = true },
                                         new CheckBox("checkbox-inline 2", true) { Inline = true },
                                         new CheckBox("checkbox-inline 3", true) { Inline = true }
-                                        ),
+                                    ),
                                     new TextBox("11/04/2017", InputType.Date),
                                     new TextBox("Password", InputType.Password),
                                     new TextArea("TextArea", 4),
                                     new Form(BootFormType.Inline,
-                                        new Label(
+                                        new Label
+                                        (
                                             "Email:",
                                             new TextBox()
                                         ),
-                                        new Label(
+                                        new Label
+                                        (
                                             "Password:",
                                             new TextBox(InputType.Password)
                                         ),
                                         new CheckBox("Remeber me"),
                                         new Button("Submit", ButtonType.Submit)
                                     ),
-                                    new Form(BootFormType.Horizontal,
+                                    new Form
+                                    (   
+                                        BootFormType.Horizontal,
                                         new Label(
                                             "Email:",
                                             new TextBox()
@@ -65,8 +106,11 @@ namespace ESBootstrap
                                     new Button("Danger", BootTheme.Danger) { OnClick = buttonClick },
                                     new Button("Link", BootTheme.Link) { OnClick = buttonClick }
                                 ),
-                                new Heading(HeadingType.H2, "Heading", new Small(" - Heading Small")),
-                                    new ParagraphList(
+                                new Heading
+                                (
+                                    HeadingType.H2, "Heading", new Small(" - Heading Small")),
+                                    new ParagraphList
+                                    (
                                         "Text",
                                         new Abbr("Abbr hover", "Abbr"),
                                         new Small("Small"),

@@ -16,7 +16,7 @@ namespace ESBootstrap
 
         public void SetContent(string width = "device-width", string initial_scale = "1", string maximum_scale = "1", string user_scalable = "")
         {
-            this.SetAttribute("content", $"width ={width}, initial-scale=1{(user_scalable == "no" ? ", user-scalable=no" : "")}");
+            this.SetAttribute("content", $"width={width}, initial-scale=1{(user_scalable == "no" ? ", user-scalable=no" : "")}");
         }
 
         public string GetContent()
