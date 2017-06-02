@@ -4120,7 +4120,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             if (typos === void 0) { typos = []; }
 
             this.$initialize();
-            ESBootstrap.WidgetStyle.ctor.call(this, "container-fluid", typos);
+            ESBootstrap.WidgetStyle.ctor.call(this, "container", typos);
 
         },
         getFluid: function () {
