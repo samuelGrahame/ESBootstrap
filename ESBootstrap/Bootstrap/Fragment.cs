@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ESBootstrap.Bootstrap
+namespace ESBootstrap
 {
     public class Fragment
     {
@@ -17,6 +17,11 @@ namespace ESBootstrap.Bootstrap
             Content = Document.CreateDocumentFragment();
 
             Widget.AppendTypos(Content, typos);
+        }
+
+        public static implicit operator Node(Fragment control)
+        {            
+            return control.Content;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Bridge;
 using Bridge.Html5;
 
-namespace ESBootstrap.Modal
+namespace ESBootstrap
 {
     public class ModalDialog : WidgetStyle
     {

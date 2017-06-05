@@ -26,11 +26,30 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
                 x.content = widget;
                 return x;
             },
-            appendTypos$1: function (control, typos) {
+            appendTypos$2: function (control, typos) {
                 if (typos === void 0) { typos = []; }
                 ESBootstrap.Widget.appendTypos(control.content, typos);
             },
             appendTypos: function (control, typos) {
+                if (typos === void 0) { typos = []; }
+                if (typos != null) {
+                    var length = typos.length;
+                    for (var i = 0; i < length; i = (i + 1) | 0) {
+                        if (Bridge.is(typos[i], String)) {
+                            control.appendChild(document.createTextNode(typos[i]));
+                        } else {
+                            if (Bridge.is(typos[i], ESBootstrap.Widget)) {
+                                control.appendChild(ESBootstrap.Widget.op_Implicit(typos[i]));
+                            } else {
+                                if (Bridge.is(typos[i], HTMLElement)) {
+                                    control.appendChild(typos[i]);
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            appendTypos$1: function (control, typos) {
                 if (typos === void 0) { typos = []; }
                 if (typos != null) {
                     var length = typos.length;
@@ -69,6 +88,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             }
         },
         content: null,
+        aria: null,
         hasAdded: false,
         $ctor1: function (typos) {
             if (typos === void 0) { typos = []; }
@@ -81,13 +101,28 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
 
             this.$initialize();
             this.content = element;
-            ESBootstrap.Widget.appendTypos$1(this, typos);
+            ESBootstrap.Widget.appendTypos$2(this, typos);
         },
         getStyle: function () {
             return this.content.style;
         },
         getClassList: function () {
             return this.content.classList;
+        },
+        getRole: function () {
+            return this.getAttribute("role");
+        },
+        setRole: function (value) {
+            this.setAttribute("role", value);
+        },
+        getTitle: function () {
+            return this.getAttribute("title");
+        },
+        setTitle: function (value) {
+            this.setAttribute("title", value);
+        },
+        getAria: function () {
+            return this.aria || ((this.aria = new ESBootstrap.Aria(this.content)));
         },
         getId: function () {
             return this.content.id;
@@ -187,6 +222,27 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             this.setWidth(value.z);
             this.setHeight(value.m);
         },
+        getPlacement: function () {
+            var value = this.getAttribute("data-placement");
+
+            var names = System.Enum.getNames(ESBootstrap.DataPlacement);
+            var values = System.Enum.getValues(ESBootstrap.DataPlacement);
+
+            for (var i = 0; i < names.length; i = (i + 1) | 0) {
+                if (Bridge.referenceEquals(value, names[i].toLowerCase())) {
+                    return System.Nullable.getValue(Bridge.cast(values[i], System.Int32));
+                }
+            }
+
+            return ESBootstrap.DataPlacement.None;
+        },
+        setPlacement: function (value) {
+            if (value === ESBootstrap.DataPlacement.None) {
+                this.setAttribute("data-placement", null);
+            } else {
+                this.setAttribute("data-placement", System.Enum.format(ESBootstrap.DataPlacement, value, "G").toLowerCase());
+            }
+        },
         onAdded: function () {
             this.hasAdded = true;
         },
@@ -276,6 +332,254 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             if (!System.String.isNullOrWhiteSpace(value) && System.String.startsWith(value, type)) {
                 this.getClassList().add(value);
             }
+        }
+    });
+
+    Bridge.define("ESBootstrap.Aria", {
+        owner: null,
+        ctor: function (element) {
+            this.$initialize();
+            this.owner = element;
+        },
+        getAtomic: function () {
+            return Bridge.referenceEquals(this.owner.getAttribute("aria-atomic"), "true");
+        },
+        setAtomic: function (value) {
+            if (value === this.getAtomic()) {
+                return;
+            }
+            this.owner.setAttribute("aria-atomic", ESBootstrap.Extensions.toProperty(value));
+        },
+        getBusy: function () {
+            return Bridge.referenceEquals(this.owner.getAttribute("aria-busy"), "true");
+        },
+        setBusy: function (value) {
+            if (value === this.getAtomic()) {
+                return;
+            }
+            this.owner.setAttribute("aria-busy", ESBootstrap.Extensions.toProperty(value));
+        },
+        getControls: function () {
+            return this.owner.getAttribute("aria-controls");
+        },
+        setControls: function (value) {
+            this.owner.setAttribute("aria-controls", value);
+        },
+        getDescribedBy: function () {
+            return this.owner.getAttribute("aria-describedby");
+        },
+        setDescribedBy: function (value) {
+            this.owner.setAttribute("aria-describedby", value);
+        },
+        getDisabled: function () {
+            return Bridge.referenceEquals(this.owner.getAttribute("aria-disabled"), "true");
+        },
+        setDisabled: function (value) {
+            if (value === this.getAtomic()) {
+                return;
+            }
+            this.owner.setAttribute("aria-disabled", ESBootstrap.Extensions.toProperty(value));
+        },
+        getDropEffect: function () {
+            return this.owner.getAttribute("aria-dropeffect");
+        },
+        setDropEffect: function (value) {
+            this.owner.setAttribute("aria-dropeffect", value);
+        },
+        getFlowTo: function () {
+            return this.owner.getAttribute("aria-flowto");
+        },
+        setFlowTo: function (value) {
+            this.owner.setAttribute("aria-flowto", value);
+        },
+        getGrabbed: function () {
+            return this.owner.getAttribute("aria-disabled") == null ? null : Bridge.referenceEquals(this.owner.getAttribute("aria-disabled"), "true");
+        },
+        setGrabbed: function (value) {
+            if (System.Nullable.eq(value, this.getAtomic())) {
+                return;
+            }
+            this.owner.setAttribute("aria-disabled", value == null ? null : ESBootstrap.Extensions.toProperty(System.Nullable.getValue(value)));
+        },
+        getHasPopup: function () {
+            return this.owner.getAttribute("aria-haspopup") == null ? null : Bridge.referenceEquals(this.owner.getAttribute("aria-haspopup"), "true");
+        },
+        setHasPopup: function (value) {
+            if (System.Nullable.eq(value, this.getAtomic())) {
+                return;
+            }
+            this.owner.setAttribute("aria-haspopup", value == null ? null : ESBootstrap.Extensions.toProperty(System.Nullable.getValue(value)));
+        },
+        getHidden: function () {
+            return Bridge.referenceEquals(this.owner.getAttribute("aria-hidden"), "true");
+        },
+        setHidden: function (value) {
+            if (value === this.getAtomic()) {
+                return;
+            }
+            this.owner.setAttribute("aria-haspopup", ESBootstrap.Extensions.toProperty(value));
+        },
+        getInvalid: function () {
+            return this.owner.getAttribute("aria-invalid");
+        },
+        setInvalid: function (value) {
+            this.owner.setAttribute("aria-invalid", value);
+        },
+        getLabel: function () {
+            return this.owner.getAttribute("aria-label");
+        },
+        setLabel: function (value) {
+            this.owner.setAttribute("aria-label", value);
+        },
+        getLabelledby: function () {
+            return this.owner.getAttribute("aria-labelledby");
+        },
+        setLabelledby: function (value) {
+            this.owner.setAttribute("aria-labelledby", value);
+        },
+        getLive: function () {
+            return this.owner.getAttribute("aria-live");
+        },
+        setLive: function (value) {
+            this.owner.setAttribute("aria-live", value);
+        },
+        getOwns: function () {
+            return this.owner.getAttribute("aria-owns");
+        },
+        setOwns: function (value) {
+            this.owner.setAttribute("aria-owns", value);
+        },
+        getRelevant: function () {
+            return this.owner.getAttribute("aria-relevant");
+        },
+        setRelevant: function (value) {
+            this.owner.setAttribute("aria-relevant", value);
+        },
+        getAutoComplete: function () {
+            return this.owner.getAttribute("aria-autocomplete");
+        },
+        setAutoComplete: function (value) {
+            this.owner.setAttribute("aria-autocomplete", value);
+        },
+        getChecked: function () {
+            return this.owner.getAttribute("aria-checked");
+        },
+        setChecked: function (value) {
+            this.owner.setAttribute("aria-checked", value);
+        },
+        getExpanded: function () {
+            return this.owner.getAttribute("aria-expanded") == null ? null : Bridge.referenceEquals(this.owner.getAttribute("aria-expanded"), "true");
+        },
+        setExpanded: function (value) {
+            if (System.Nullable.eq(value, this.getAtomic())) {
+                return;
+            }
+            this.owner.setAttribute("aria-expanded", value == null ? null : ESBootstrap.Extensions.toProperty(System.Nullable.getValue(value)));
+        },
+        getLevel: function () {
+            return this.owner.getAttribute("aria-level") == null ? null : parseInt(this.owner.getAttribute("aria-level"));
+        },
+        setLevel: function (value) {
+            this.owner.setAttribute("aria-level", value == null ? null : System.Nullable.getValue(value).toString());
+        },
+        getMultiLine: function () {
+            return Bridge.referenceEquals(this.owner.getAttribute("aria-multiline"), "true");
+        },
+        setMultiLine: function (value) {
+            if (value === this.getAtomic()) {
+                return;
+            }
+            this.owner.setAttribute("aria-multiline", ESBootstrap.Extensions.toProperty(value));
+        },
+        getMultiSelectable: function () {
+            return Bridge.referenceEquals(this.owner.getAttribute("aria-multiselectable"), "true");
+        },
+        setMultiSelectable: function (value) {
+            if (value === this.getAtomic()) {
+                return;
+            }
+            this.owner.setAttribute("aria-multiselectable", ESBootstrap.Extensions.toProperty(value));
+        },
+        getOrientation: function () {
+            return this.owner.getAttribute("aria-orientation");
+        },
+        setOrientation: function (value) {
+            this.owner.setAttribute("aria-orientation", value);
+        },
+        getPressed: function () {
+            return Bridge.referenceEquals(this.owner.getAttribute("aria-pressed"), "true");
+        },
+        setPressed: function (value) {
+            if (value === this.getAtomic()) {
+                return;
+            }
+            this.owner.setAttribute("aria-pressed", ESBootstrap.Extensions.toProperty(value));
+        },
+        getReadonly: function () {
+            return Bridge.referenceEquals(this.owner.getAttribute("aria-readonly"), "true");
+        },
+        setReadonly: function (value) {
+            if (value === this.getAtomic()) {
+                return;
+            }
+            this.owner.setAttribute("aria-readonly", ESBootstrap.Extensions.toProperty(value));
+        },
+        getRequired: function () {
+            return Bridge.referenceEquals(this.owner.getAttribute("aria-required"), "true");
+        },
+        setRequired: function (value) {
+            if (value === this.getAtomic()) {
+                return;
+            }
+            this.owner.setAttribute("aria-required", ESBootstrap.Extensions.toProperty(value));
+        },
+        getSort: function () {
+            return this.owner.getAttribute("aria-sort");
+        },
+        setSort: function (value) {
+            this.owner.setAttribute("aria-sort", value);
+        },
+        getValueMax: function () {
+            return this.owner.getAttribute("aria-valuemax");
+        },
+        setValueMax: function (value) {
+            this.owner.setAttribute("aria-valuemax", value);
+        },
+        getValueMin: function () {
+            return this.owner.getAttribute("aria-valuemin");
+        },
+        setValueMin: function (value) {
+            this.owner.setAttribute("aria-valuemin", value);
+        },
+        getValueNow: function () {
+            return this.owner.getAttribute("aria-valuenow");
+        },
+        setValueNow: function (value) {
+            this.owner.setAttribute("aria-valuenow", value);
+        },
+        getValueText: function () {
+            return this.owner.getAttribute("aria-valuetext");
+        },
+        setValueText: function (value) {
+            this.owner.setAttribute("aria-valuetext", value);
+        },
+        getActiveDescendant: function () {
+            return this.owner.getAttribute("aria-activedescendant");
+        },
+        setActiveDescendant: function (value) {
+            this.owner.setAttribute("aria-activedescendant", value);
+        },
+        getPosInset: function () {
+            return this.owner.getAttribute("aria-posinset") == null ? null : parseInt(this.owner.getAttribute("aria-posinset"));
+        },
+        setPosInset: function (value) {
+            this.owner.setAttribute("aria-posinset", value == null ? null : System.Nullable.getValue(value).toString());
+        },
+        getSetSize: function () {
+            return this.owner.getAttribute("aria-setsize") == null ? null : parseInt(this.owner.getAttribute("aria-setsize"));
+        },
+        setSetSize: function (value) {
+            this.owner.setAttribute("aria-setsize", value == null ? null : System.Nullable.getValue(value).toString());
         }
     });
 
@@ -1106,8 +1410,22 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
         }
     });
 
+    Bridge.define("ESBootstrap.DataPlacement", {
+        $kind: "enum",
+        statics: {
+            None: 0,
+            Top: 1,
+            Bottom: 2,
+            Left: 3,
+            Right: 4
+        }
+    });
+
     Bridge.define("ESBootstrap.Extensions", {
         statics: {
+            toProperty: function (value) {
+                return value ? "true" : "false";
+            },
             getText: function (element) {
                 if (element == null) {
                     return "";
@@ -1309,6 +1627,23 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
                 }
                 return System.String.concat(cls, System.Enum.format(ESBootstrap.BootTheme, type, "G").toLowerCase());
             }
+        }
+    });
+
+    Bridge.define("ESBootstrap.Fragment", {
+        statics: {
+            op_Implicit: function (control) {
+                return control.content;
+            }
+        },
+        content: null,
+        ctor: function (typos) {
+            if (typos === void 0) { typos = []; }
+
+            this.$initialize();
+            this.content = document.createDocumentFragment();
+
+            ESBootstrap.Widget.appendTypos$1(this.content, typos);
         }
     });
 
@@ -1900,7 +2235,17 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
         }
     });
 
-    Bridge.define("ESBootstrap.Program");
+    Bridge.define("ESBootstrap.Program", {
+        $main: function () {
+            ESBootstrap.Extensions.appendChildren$1(document.body, [ESBootstrap.Fragment.op_Implicit(new ESBootstrap.Fragment([Bridge.merge(new ESBootstrap.Navbar([new ESBootstrap.NavbarHeader([new ESBootstrap.NavbarCollapseButton("navbarContent"), new ESBootstrap.NavbarBrand("#", ["Document Fragment Test"])]), new ESBootstrap.NavbarContent("navbarContent", [Bridge.merge(new ESBootstrap.UnorderedList([Bridge.merge(new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Home ", new ESBootstrap.SourceOnly(["(current)"])])]), {
+                setActive: true
+            } )]), {
+                setNav: true
+            } )])]), {
+                setNavbarLocation: ESBootstrap.NavBarLocation.Static_Top
+            } )]))]);
+        }
+    });
 
     Bridge.define("ESBootstrap.Rule", {
         statics: {
@@ -2535,19 +2880,60 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
         setOnClick: function (value) {
             this.content.onclick = value;
         },
+        getDismiss: function () {
+            return this.getAttribute("data-dismiss");
+        },
+        setDismiss: function (value) {
+            this.setAttribute("data-dismiss", value);
+        },
+        getToggle: function () {
+            return this.getAttribute("data-toggle");
+        },
+        setToggle: function (value) {
+            this.setAttribute("data-toggle", value);
+        },
+        getTarget: function () {
+            return this.getAttribute("data-target");
+        },
+        setTarget: function (value) {
+            this.setAttribute("data-target", value);
+        },
+        getToggleModal: function () {
+            return Bridge.referenceEquals(this.getToggle(), "modal");
+        },
+        setToggleModal: function (value) {
+            if (value) {
+                this.setToggle("modal");
+            } else {
+                this.setToggle(null);
+            }
+        },
+        getModalButton: function () {
+            return Bridge.referenceEquals(this.getDismiss(), "modal");
+        },
+        setModalButton: function (value) {
+            if (value) {
+                this.setDismiss("modal");
+            } else {
+                this.setDismiss(null);
+            }
+        },
         getDropdown: function () {
             return this.getClassTrue("dropdown-toggle");
         },
         setDropdown: function (value) {
             if (value) {
-                this.setAttribute("data-toggle", "dropdown");
-                this.setAttribute("aria-haspopup", "true");
-                this.setAttribute("aria-expanded", "false");
+                this.setToggle("dropdown");
+
+                this.getAria().setHasPopup(true);
+                this.getAria().setExpanded(false);
             } else {
-                this.setAttribute("data-toggle", null);
-                this.setAttribute("aria-haspopup", null);
-                this.setAttribute("aria-expanded", null);
+                this.setToggle(null);
+
+                this.getAria().setHasPopup(null);
+                this.getAria().setExpanded(null);
             }
+
             this.setClassTrue("dropdown-toggle", value);
         }
     });
@@ -2571,7 +2957,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             x.add(para);
             x.addRange(typos);
 
-            ESBootstrap.Widget.appendTypos$1(this, x.toArray());
+            ESBootstrap.Widget.appendTypos$2(this, x.toArray());
         },
         $ctor2: function (para, footer, typos) {
             if (typos === void 0) { typos = []; }
@@ -2584,7 +2970,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             x.add(footer);
             x.addRange(typos);
 
-            ESBootstrap.Widget.appendTypos$1(this, x.toArray());
+            ESBootstrap.Widget.appendTypos$2(this, x.toArray());
         },
         $ctor3: function (para, footer, source, typos) {
             if (typos === void 0) { typos = []; }
@@ -2597,7 +2983,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             x.add(ESBootstrap.Extensions.appendChild(footer, source));
             x.addRange(typos);
 
-            ESBootstrap.Widget.appendTypos$1(this, x.toArray());
+            ESBootstrap.Widget.appendTypos$2(this, x.toArray());
         },
         getReverse: function () {
             return this.getClassTrue("blockquote-reverse");
@@ -2967,6 +3353,12 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             this.$initialize();
             ESBootstrap.Widget.ctor.call(this, document.createElement(ht), typos);
 
+        },
+        getModalTitle: function () {
+            return this.getClassTrue("modal-title");
+        },
+        setModalTitle: function (value) {
+            this.setClassTrue("modal-title", value);
         }
     });
 
@@ -3071,7 +3463,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
                     }
 
                 }
-                ESBootstrap.Widget.appendTypos$1(control, list);
+                ESBootstrap.Widget.appendTypos$2(control, list);
             }
         },
         ctor: function (typos) {
@@ -3092,11 +3484,12 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
         },
         setDivider: function (value) {
             if (value) {
+                this.setRole("separator");
+
                 this.setAttribute("role", "separator");
             } else {
-                var x = this.getAttribute("role");
-                if (Bridge.referenceEquals(x, "separator")) {
-                    this.setAttribute("role", null);
+                if (Bridge.referenceEquals(this.getRole(), "separator")) {
+                    this.setRole(null);
                 }
             }
             this.setClassTrue("divider", value);
@@ -3295,7 +3688,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
                 }
 
             }
-            ESBootstrap.Widget.appendTypos$1(this, list);
+            ESBootstrap.Widget.appendTypos$2(this, list);
         }
     });
 
@@ -3481,7 +3874,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
                     }
 
                 }
-                ESBootstrap.Widget.appendTypos$1(control, list);
+                ESBootstrap.Widget.appendTypos$2(control, list);
             }
         },
         ctor: function (typos) {
@@ -3569,7 +3962,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
                     }
 
                 }
-                ESBootstrap.Widget.appendTypos$1(control, list);
+                ESBootstrap.Widget.appendTypos$2(control, list);
             }
         },
         ctor: function (typos) {
@@ -3891,7 +4284,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
 
             this.$initialize();
             ESBootstrap.WidgetStyle.ctor.call(this, "btn-group", typos);
-            this.setAttribute("role", "group");
+            this.setRole("group");
         },
         getButtonSize: function () {
             var x = this.getEnumClassValue("btn-group-", ESBootstrap.BootSize);
@@ -3938,7 +4331,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             this.$initialize();
             ESBootstrap.WidgetStyle.ctor.call(this, "checkbox");
             var x = new ESBootstrap.CheckBoxBase(value);
-            ESBootstrap.Widget.appendTypos$1(this, [new ESBootstrap.Label([x, label])]);
+            ESBootstrap.Widget.appendTypos$2(this, [new ESBootstrap.Label([x, label])]);
 
             x.setOnTextChanged(Bridge.fn.bind(this, $asm.$.ESBootstrap.CheckBox.f1));
         },
@@ -4039,7 +4432,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
                     }
 
                 }
-                ESBootstrap.Widget.appendTypos$1(control, list);
+                ESBootstrap.Widget.appendTypos$2(control, list);
             }
         },
         ctor: function (typos) {
@@ -4077,6 +4470,86 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
         }
     });
 
+    Bridge.define("ESBootstrap.Modal", {
+        inherits: [ESBootstrap.WidgetStyle],
+        ctor: function (typos) {
+            if (typos === void 0) { typos = []; }
+
+            this.$initialize();
+            ESBootstrap.WidgetStyle.ctor.call(this, "modal fade", typos);
+            this.setRole("dialog");
+        }
+    });
+
+    Bridge.define("ESBootstrap.ModalBody", {
+        inherits: [ESBootstrap.WidgetStyle],
+        ctor: function (typos) {
+            if (typos === void 0) { typos = []; }
+
+            this.$initialize();
+            ESBootstrap.WidgetStyle.ctor.call(this, "modal-body", typos);
+        }
+    });
+
+    Bridge.define("ESBootstrap.ModalContent", {
+        inherits: [ESBootstrap.WidgetStyle],
+        ctor: function (typos) {
+            if (typos === void 0) { typos = []; }
+
+            this.$initialize();
+            ESBootstrap.WidgetStyle.ctor.call(this, "modal-content", typos);
+
+        }
+    });
+
+    Bridge.define("ESBootstrap.ModalDialog", {
+        inherits: [ESBootstrap.WidgetStyle],
+        ctor: function (typos) {
+            if (typos === void 0) { typos = []; }
+
+            this.$initialize();
+            ESBootstrap.WidgetStyle.ctor.call(this, "modal-dialog", typos);
+
+        },
+        getModalSize: function () {
+            var x = this.getEnumClassValue("modal-", ESBootstrap.BootSize);
+            if (x == null) {
+                return ESBootstrap.BootSize.None;
+            } else {
+                return x;
+            }
+        },
+        setModalSize: function (value) {
+            if (value === ESBootstrap.BootSize.None) {
+                this.clearEnumClassValue("modal-", ESBootstrap.BootSize);
+            } else {
+                this.setEnumClassValue("modal-", ESBootstrap.BootSize, System.String.replaceAll(System.Enum.format(ESBootstrap.BootSize, value, "G").toLowerCase(), "_", "-"));
+            }
+        }
+    });
+
+    Bridge.define("ESBootstrap.ModalFooter", {
+        inherits: [ESBootstrap.WidgetStyle],
+        ctor: function (typos) {
+            if (typos === void 0) { typos = []; }
+
+            this.$initialize();
+            ESBootstrap.WidgetStyle.ctor.call(this, "modal-footer", typos);
+
+        }
+    });
+
+    Bridge.define("ESBootstrap.ModalHeader", {
+        inherits: [ESBootstrap.WidgetStyle],
+        ctor: function (typos) {
+            if (typos === void 0) { typos = []; }
+
+            this.$initialize();
+            ESBootstrap.WidgetStyle.ctor.call(this, "modal-header", typos);
+
+        }
+    });
+
     Bridge.define("ESBootstrap.NavbarBrand", {
         inherits: [ESBootstrap.WidgetClickable],
         ctor: function (href, typos) {
@@ -4104,11 +4577,11 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             if (!System.String.isNullOrWhiteSpace(_id) && !System.String.startsWith(_id, "#")) {
                 _id = System.String.concat("#", _id);
             }
-            ESBootstrap.Widget.appendTypos$1(this, [new ESBootstrap.SourceOnly(["Toggle navigation"]), new ESBootstrap.IconBar(), new ESBootstrap.IconBar(), new ESBootstrap.IconBar()]);
-            this.setAttribute("data-toggle", "collapse");
-            this.setAttribute("data-target", _id);
+            ESBootstrap.Widget.appendTypos$2(this, [new ESBootstrap.SourceOnly(["Toggle navigation"]), new ESBootstrap.IconBar(), new ESBootstrap.IconBar(), new ESBootstrap.IconBar()]);
 
-            this.setAttribute("aria-expanded", "false");
+            this.setToggle("collapse");
+            this.setTarget(_id);
+            this.getAria().setExpanded(false);
         }
     });
 
