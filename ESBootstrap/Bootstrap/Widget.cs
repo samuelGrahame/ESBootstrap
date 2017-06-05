@@ -198,7 +198,7 @@ namespace ESBootstrap
 		{
             Content = element;
 			AppendTypos(this, typos);			
-		}
+		}        
 
 		public static void AppendTypos(Widget control, params Union<string, Widget, HTMLElement>[] typos)
 		{
@@ -222,7 +222,24 @@ namespace ESBootstrap
 			}
 		}
 
-		public string ContextualText
+        public static void AppendTypos(Node control, params Union<string, Widget, HTMLElement>[] typos)
+        {
+            if (typos != null)
+            {
+                int length = typos.Length;
+                for (int i = 0; i < length; i++)
+                {
+                    if (typos[i].Is<string>())
+                        control.AppendChild(Document.CreateTextNode((string)typos[i]));
+                    else if (typos[i].Is<Widget>())
+                        control.AppendChild((Widget)typos[i]);
+                    else if (typos[i].Is<HTMLElement>())
+                        control.AppendChild((HTMLElement)typos[i]);
+                }
+            }
+        }
+
+        public string ContextualText
 		{
 			get {
 				return GetContextual("text-");				

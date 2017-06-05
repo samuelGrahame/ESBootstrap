@@ -10,6 +10,7 @@ namespace ESBootstrap
 {
     public class Program
     {
+
         //public static void Main()
         //{
 //            Action<MouseEvent> buttonClick = (ev) => { Global.Alert(ev.CurrentTarget.As<HTMLElement>().InnerHTML); };

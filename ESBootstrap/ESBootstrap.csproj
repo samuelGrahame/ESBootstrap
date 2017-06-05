@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Bootstrap\Aria.cs" />
     <Compile Include="Bootstrap\Container.cs" />
+    <Compile Include="Bootstrap\Fragment.cs" />
     <Compile Include="Bootstrap\ViewPort.cs" />
     <Compile Include="Bootstrap\WidgetBox.cs" />
     <Compile Include="Bootstrap\Form.cs" />
