@@ -50,6 +50,8 @@ namespace ESBootstrap
 				Content.FirstChild.As<HTMLElement>().ClassList.Remove(classStr);
 		}
 
+        public static string FixedPaddingOffset = "70px";
+
 		public NavBarLocation NavbarLocation
 		{
 			get
@@ -69,13 +71,14 @@ namespace ESBootstrap
 				else
 				{
 					SetEnumClassValue("navbar-", typeof(NavBarLocation), value.ToString("G").ToLower().Replace("_", "-"));
-
+                    if (string.IsNullOrWhiteSpace(FixedPaddingOffset))
+                        return;
                     if(NavbarLocation == NavBarLocation.Fixed_Top)
                     {                        
-                        Document.Body.Style.PaddingTop = "70px";
+                        Document.Body.Style.PaddingTop = FixedPaddingOffset;
                     }else if (NavbarLocation == NavBarLocation.Fixed_Bottom)
                     {                        
-                        Document.Body.Style.PaddingBottom = "70px";
+                        Document.Body.Style.PaddingBottom = FixedPaddingOffset;
                     }
                 }
 			}

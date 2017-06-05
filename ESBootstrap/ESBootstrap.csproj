@@ -136,6 +136,7 @@
     <Content Include="Bridge\output\eSBootstrap.min.js" />
     <Content Include="Bridge\output\jquery-1.12.0.min.js" />
     <Content Include="Bridge\output\readme.txt" />
+    <Content Include="Bridge\output\todc-bootstrap.min.css" />
     <Content Include="Bridge\www\demo.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

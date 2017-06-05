@@ -10,10 +10,10 @@ namespace ESBootstrap
 {
     public class Program
     {
-        public static void CreateDemo()
+        public static void Main()
         {
             Action<MouseEvent> buttonClick = (ev) => { Global.Alert(ev.CurrentTarget.As<HTMLElement>().InnerHTML); };
-            
+            Navbar.FixedPaddingOffset = "40px";
             Document.Body.AppendChildren(
                 new Navbar
                 (
