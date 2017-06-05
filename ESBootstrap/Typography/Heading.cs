@@ -13,7 +13,16 @@ namespace ESBootstrap
 	{
 		public Heading(HeadingType ht, params Union<string, Widget, HTMLElement>[] typos) : base(new HTMLHeadingElement(ht), typos)
 		{
-			
-		}
-	}
+            
+        }
+        public bool ModalTitle
+        {
+            get { return GetClassTrue("modal-title"); }
+            set
+            {
+                SetClassTrue("modal-title", value);
+            }
+        }
+
+    }
 }

@@ -17,10 +17,10 @@ namespace ESBootstrap
 				_id = "#" + _id;
 			}
 			AppendTypos(this, new SourceOnly("Toggle navigation"), new IconBar(), new IconBar(), new IconBar());
-			SetAttribute("data-toggle", "collapse");
-			SetAttribute("data-target", _id);
-			
-			SetAttribute("aria-expanded", "false");					
+
+            Toggle = "collapse";
+            Target = _id;			
+            Aria.Expanded = false;
 		}
 	}
 }

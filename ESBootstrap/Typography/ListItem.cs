@@ -60,13 +60,14 @@ namespace ESBootstrap
 			{
 				if(value)
 				{
-					SetAttribute("role", "separator");
+                    Role = "separator";
+
+                    SetAttribute("role", "separator");
 				}else
-				{
-					var x = GetAttribute("role");
-					if(x == "separator")
+				{					
+					if(Role == "separator")
 					{
-						SetAttribute("role", null);
+                        Role = null;                        
 					}
 				}
 				SetClassTrue("divider", value);

@@ -43,6 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrap\Aria.cs" />
     <Compile Include="Bootstrap\Container.cs" />
     <Compile Include="Bootstrap\ViewPort.cs" />
     <Compile Include="Bootstrap\WidgetBox.cs" />
@@ -67,6 +68,12 @@
     <Compile Include="Grid\Col.cs" />
     <Compile Include="Grid\Row.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Modal\Modal.cs" />
+    <Compile Include="Modal\ModalBody.cs" />
+    <Compile Include="Modal\ModalContent.cs" />
+    <Compile Include="Modal\ModalDialog.cs" />
+    <Compile Include="Modal\ModalFooter.cs" />
+    <Compile Include="Modal\ModalHeader.cs" />
     <Compile Include="NavBar\IconBar.cs" />
     <Compile Include="NavBar\Navbar.cs" />
     <Compile Include="NavBar\NavbarBrand.cs" />

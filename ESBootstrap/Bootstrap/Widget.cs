@@ -14,7 +14,25 @@ namespace ESBootstrap
 
         public CSSStyleDeclaration Style => Content.Style;
         public DOMTokenList ClassList => Content.ClassList;
+        private Aria aria;
 
+        public string Role
+        {
+            get { return GetAttribute("role"); }
+            set { SetAttribute("role", value); }
+        }
+
+        public string Title
+        {
+            get { return GetAttribute("title"); }
+            set { SetAttribute("title", value); }
+        }
+
+        public Aria Aria
+        {
+            get { return aria ?? (aria = new Aria(this.Content)); }            
+        }
+        
         public bool HasAdded = false;
 
         public virtual void OnAdded()
@@ -354,6 +372,37 @@ namespace ESBootstrap
             }
         }
 
+        public DataPlacement Placement
+        {
+            get
+            {
+                string value = GetAttribute("data-placement");
+
+                var names = Enum.GetNames(typeof(DataPlacement));
+                var values = Enum.GetValues(typeof(DataPlacement));
+
+                for (int i = 0; i < names.Length; i++)
+                {
+                    if(value == names[i].ToLower())
+                    {
+                        return (DataPlacement)values[i];
+                    }
+                }
+
+                return DataPlacement.None;                
+            }
+            set
+            {
+                if (value == DataPlacement.None)
+                {
+                    SetAttribute("data-placement", null);                    
+                }
+                else
+                {
+                    SetAttribute("data-placement", value.ToString("G").ToLower());                    
+                }
+            }
+        }
     }
 
 	public static class Contextual

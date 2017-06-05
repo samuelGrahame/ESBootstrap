@@ -15,8 +15,57 @@ namespace ESBootstrap
 		{
 
 		}
+       
+        public string Dismiss
+        {
+            get { return GetAttribute("data-dismiss"); }
+            set { SetAttribute("data-dismiss", value); }
+        }
 
-		public WidgetClickable(HTMLElement element, params Union<string, Widget, HTMLElement>[] typos) : base(element, typos)
+        public string Toggle
+        {
+            get { return GetAttribute("data-toggle"); }
+            set { SetAttribute("data-toggle", value); }
+        }
+
+        public string Target
+        {
+            get { return GetAttribute("data-target"); }
+            set { SetAttribute("data-target", value); }
+        }
+        public bool ToggleModal
+        {
+            get { return Toggle == "modal"; }
+            set
+            {
+                if (value)
+                {
+                    Toggle = "modal";
+                }
+                else
+                {
+                    Toggle = null;
+                }
+            }
+        }
+        
+        public bool ModalButton
+        {
+            get { return Dismiss == "modal"; }
+            set {
+                if(value)
+                {
+                    Dismiss = "modal";
+                }
+                else
+                {
+                    Dismiss = null;
+                }
+            }
+        }
+
+
+        public WidgetClickable(HTMLElement element, params Union<string, Widget, HTMLElement>[] typos) : base(element, typos)
 		{
 
 		}
@@ -29,16 +78,19 @@ namespace ESBootstrap
 			{
 				if(value)
 				{
-					SetAttribute("data-toggle", "dropdown");
-					SetAttribute("aria-haspopup", "true");
-					SetAttribute("aria-expanded", "false");
-				}
+                    Toggle = "dropdown";
+                    
+                    Aria.HasPopup = true;
+                    Aria.Expanded = false;
+                }
 				else
 				{
-					SetAttribute("data-toggle", null);
-					SetAttribute("aria-haspopup", null);
-					SetAttribute("aria-expanded", null);
-				}
+                    Toggle = null;                    
+					
+                    Aria.HasPopup = null;
+                    Aria.Expanded = null;
+                }
+
 				SetClassTrue("dropdown-toggle", value);
 			}
 		}

@@ -10,6 +10,11 @@ namespace ESBootstrap
 {
     public static class Extensions
     {
+        public static string ToProperty(this bool value)
+        {
+            return value ? "true" : "false";
+        }
+
         public static string GetText(this HTMLElement element)
         {
             if (element == null)

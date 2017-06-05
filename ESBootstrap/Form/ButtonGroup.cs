@@ -11,7 +11,7 @@ namespace ESBootstrap
 	{
 		public ButtonGroup(params Union<string, Widget, Bridge.Html5.HTMLElement>[] typos) : base("btn-group", typos)
 		{
-			SetAttribute("role", "group");
+            Role = "group";			
 		}
 
 		public BootSize ButtonSize

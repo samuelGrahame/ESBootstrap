@@ -79,9 +79,20 @@ namespace ESBootstrap
 		None,
 		Inline,
 		Horizontal
-	}    
+	}
 
-	public class RuleTier
+    public enum DataPlacement
+    {
+        None,
+        Top,
+        Bottom,
+        Left,
+        Right
+    }
+
+    //data-placement="top"
+
+    public class RuleTier
 	{
 		public string value;
 		public RuleTier(string _value)
