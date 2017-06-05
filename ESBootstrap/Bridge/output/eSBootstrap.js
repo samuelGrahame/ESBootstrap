@@ -2237,13 +2237,54 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
 
     Bridge.define("ESBootstrap.Program", {
         $main: function () {
-            ESBootstrap.Extensions.appendChildren$1(document.body, [ESBootstrap.Fragment.op_Implicit(new ESBootstrap.Fragment([Bridge.merge(new ESBootstrap.Navbar([new ESBootstrap.NavbarHeader([new ESBootstrap.NavbarCollapseButton("navbarContent"), new ESBootstrap.NavbarBrand("#", ["Document Fragment Test"])]), new ESBootstrap.NavbarContent("navbarContent", [Bridge.merge(new ESBootstrap.UnorderedList([Bridge.merge(new ESBootstrap.ListItem([new ESBootstrap.Anchor("#", ["Home ", new ESBootstrap.SourceOnly(["(current)"])])]), {
-                setActive: true
+            //Window.OnHashChange = (ev) =>
+            //{
+            //    var ul = Widget.GetWidgetById<UnorderedList>("navBarButtonList");
+            //    foreach (var item in ul.Content.ChildNodes)
+            //    {
+            //        if(item.NodeType == NodeType.Element && item.As<HTMLElement>().TagName == "LI")
+            //        {
+            //            var li = Widget.CastElement<ListItem>(item.As<HTMLElement>());
+            //            if(li.Content.HasChildNodes())
+            //            {
+            //                if(li.Content.FirstChild.As<HTMLElement>().TagName == "A")
+            //                {
+            //                    var a = Widget.CastElement<Anchor>(li.Content.FirstChild.As<HTMLElement>());
+            //                    if(a.Content.As<HTMLAnchorElement>().Hash == Window.Location.Hash)
+            //                    {
+            //                        if(a.Content.LastChild.As<HTMLElement>().InnerHTML != "(current)")
+            //                        {
+            //                            a.AppendChild(new SourceOnly("(current)"));
+            //                        }
+            //                        li.Active = true;
+            //                    }
+            //                    else
+            //                    {
+            //                        if (a.Content.LastChild.As<HTMLElement>().InnerHTML == "(current)")
+            //                        {
+            //                            a.Content.RemoveChild(a.Content.LastChild);                                      
+            //                        }
+            //                        li.Active = false;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }                
+            //};
+
+            ESBootstrap.Extensions.appendChildren$1(document.body, [ESBootstrap.Fragment.op_Implicit(new ESBootstrap.Fragment([Bridge.merge(new ESBootstrap.Navbar([new ESBootstrap.NavbarHeader([new ESBootstrap.NavbarCollapseButton("navbarContent"), new ESBootstrap.NavbarBrand("#home", ["Document Fragment Test"])]), new ESBootstrap.NavbarContent("navbarContent", [Bridge.merge(new ESBootstrap.UnorderedList([Bridge.merge(new ESBootstrap.ListItem([Bridge.merge(new ESBootstrap.Anchor("#home", ["Home", new ESBootstrap.SourceOnly(["(current)"])]), {
+                setId: "home"
             } )]), {
-                setNav: true
+                setActive: true
+            } ), new ESBootstrap.ListItem([Bridge.merge(new ESBootstrap.Anchor("#about", ["about"]), {
+                setId: "about"
+            } )])]), {
+                setId: "navBarButtonList"
             } )])]), {
                 setNavbarLocation: ESBootstrap.NavBarLocation.Static_Top
             } )]))]);
+
+            window.location.hash = "#home";
         }
     });
 
@@ -3510,6 +3551,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
     Bridge.define("ESBootstrap.Navbar", {
         inherits: [ESBootstrap.Widget],
         statics: {
+            autoDetectNavBarItems: true,
             fixedPaddingOffset: "70px"
         },
         ctor: function (typos) {
@@ -4108,9 +4150,11 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             return this.getClassTrue("nav") && this.getClassTrue("navbar-nav");
         },
         setNav: function (value) {
-            this.setClassTrue("nav", value);
-            this.setClassTrue("navbar-nav", value);
-            this.applyDataAttribute(this.content, value);
+            if (this.getNav() !== value) {
+                this.setClassTrue("nav", value);
+                this.setClassTrue("navbar-nav", value);
+                this.applyDataAttribute(this.content, value);
+            }
         },
         getDropdownMenu: function () {
             return this.getClassTrue("dropdown-menu");
@@ -4592,13 +4636,23 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
 
             this.$initialize();
             ESBootstrap.WidgetStyle.ctor.call(this, "collapse navbar-collapse", typos);
+            var $t;
             if (!System.String.isNullOrWhiteSpace(_id)) {
                 if (System.String.startsWith(_id, "#")) {
                     _id = _id.substr(1);
                 }
                 this.setId(_id);
             }
-        }
+            if (ESBootstrap.Navbar.autoDetectNavBarItems) {
+                $t = Bridge.getEnumerator(typos);
+                while ($t.moveNext()) {
+                    var item = $t.getCurrent();
+                    if (Bridge.is(item, ESBootstrap.UnorderedList)) {
+                        item.setNav(true);
+                    }
+                }
+            }
+    }
     });
 
     Bridge.define("ESBootstrap.NavbarHeader", {

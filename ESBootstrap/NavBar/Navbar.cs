@@ -10,9 +10,10 @@ namespace ESBootstrap
 {
 	public class Navbar : Widget
 	{
+        public static bool AutoDetectNavBarItems = true;
 		public Navbar(params Union<string, Widget, HTMLElement>[] typos) : base(Document.CreateElement("nav"), new Container(typos))
 		{
-			Content.ClassName = "navbar navbar-default";		
+			Content.ClassName = "navbar navbar-default";            
 		}
 
 		public NavBarTheme Theme

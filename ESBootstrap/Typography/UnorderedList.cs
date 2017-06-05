@@ -57,7 +57,7 @@ namespace ESBootstrap
 					child.SetAttribute("data-target", ".navbar-collapse.in");
 				}
 				else
-				{
+				{                    
 					child.SetAttribute("data-toggle", "");
 					child.SetAttribute("data-target", "");
 				}
@@ -69,9 +69,12 @@ namespace ESBootstrap
 			get { return GetClassTrue("nav") && GetClassTrue("navbar-nav"); }
 			set
 			{
-				SetClassTrue("nav", value);
-				SetClassTrue("navbar-nav", value);
-				ApplyDataAttribute(this.Content, value);
+                if(Nav != value)
+                {
+                    SetClassTrue("nav", value);
+                    SetClassTrue("navbar-nav", value);
+                    ApplyDataAttribute(this.Content, value);
+                }				
 			}
 		}
 

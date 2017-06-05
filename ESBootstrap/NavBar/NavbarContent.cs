@@ -18,6 +18,16 @@ namespace ESBootstrap
 					_id = _id.Substring(1);
 				Id = _id;
 			}
-		}
+            if (Navbar.AutoDetectNavBarItems)
+            {
+                foreach (var item in typos)
+                {
+                    if (item.Is<UnorderedList>())
+                    {
+                        item.As<UnorderedList>().Nav = true;
+                    }
+                }
+            }            
+        }
 	}
 }

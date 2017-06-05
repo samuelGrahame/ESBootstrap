@@ -12,26 +12,64 @@ namespace ESBootstrap
     {
         public static void Main()
         {
+            //Window.OnHashChange = (ev) =>
+            //{
+            //    var ul = Widget.GetWidgetById<UnorderedList>("navBarButtonList");
+            //    foreach (var item in ul.Content.ChildNodes)
+            //    {
+            //        if(item.NodeType == NodeType.Element && item.As<HTMLElement>().TagName == "LI")
+            //        {
+            //            var li = Widget.CastElement<ListItem>(item.As<HTMLElement>());
+            //            if(li.Content.HasChildNodes())
+            //            {
+            //                if(li.Content.FirstChild.As<HTMLElement>().TagName == "A")
+            //                {
+            //                    var a = Widget.CastElement<Anchor>(li.Content.FirstChild.As<HTMLElement>());
+            //                    if(a.Content.As<HTMLAnchorElement>().Hash == Window.Location.Hash)
+            //                    {
+            //                        if(a.Content.LastChild.As<HTMLElement>().InnerHTML != "(current)")
+            //                        {
+            //                            a.AppendChild(new SourceOnly("(current)"));
+            //                        }
+            //                        li.Active = true;
+            //                    }
+            //                    else
+            //                    {
+            //                        if (a.Content.LastChild.As<HTMLElement>().InnerHTML == "(current)")
+            //                        {
+            //                            a.Content.RemoveChild(a.Content.LastChild);                                      
+            //                        }
+            //                        li.Active = false;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }                
+            //};
+
             Document.Body.AppendChildren(new Fragment(
                     new Navbar
                     (
                         new NavbarHeader
                         (
                             new NavbarCollapseButton("navbarContent"),
-                            new NavbarBrand("#", "Document Fragment Test")
+                            new NavbarBrand("#home", "Document Fragment Test")
                         ),
                         new NavbarContent
                         (
                             "navbarContent",
                             new UnorderedList
                             (
-                                new ListItem(new Anchor("#", "Home ", new SourceOnly("(current)"))) { Active = true }
+                                new ListItem(new Anchor("#home", "Home", new SourceOnly("(current)")) { Id = "home" }) { Active = true },
+                                new ListItem(new Anchor("#about", "about") { Id = "about" })
                             )
-                            { Nav = true }
+                            { Id = "navBarButtonList" }                            
                         )
                     )
                     { NavbarLocation = NavBarLocation.Static_Top }                    
                 ));
+
+            Window.Location.Hash = "#home";
         }
 
         
