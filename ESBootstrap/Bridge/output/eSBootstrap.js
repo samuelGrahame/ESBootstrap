@@ -2235,58 +2235,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
         }
     });
 
-    Bridge.define("ESBootstrap.Program", {
-        $main: function () {
-            //Window.OnHashChange = (ev) =>
-            //{
-            //    var ul = Widget.GetWidgetById<UnorderedList>("navBarButtonList");
-            //    foreach (var item in ul.Content.ChildNodes)
-            //    {
-            //        if(item.NodeType == NodeType.Element && item.As<HTMLElement>().TagName == "LI")
-            //        {
-            //            var li = Widget.CastElement<ListItem>(item.As<HTMLElement>());
-            //            if(li.Content.HasChildNodes())
-            //            {
-            //                if(li.Content.FirstChild.As<HTMLElement>().TagName == "A")
-            //                {
-            //                    var a = Widget.CastElement<Anchor>(li.Content.FirstChild.As<HTMLElement>());
-            //                    if(a.Content.As<HTMLAnchorElement>().Hash == Window.Location.Hash)
-            //                    {
-            //                        if(a.Content.LastChild.As<HTMLElement>().InnerHTML != "(current)")
-            //                        {
-            //                            a.AppendChild(new SourceOnly("(current)"));
-            //                        }
-            //                        li.Active = true;
-            //                    }
-            //                    else
-            //                    {
-            //                        if (a.Content.LastChild.As<HTMLElement>().InnerHTML == "(current)")
-            //                        {
-            //                            a.Content.RemoveChild(a.Content.LastChild);                                      
-            //                        }
-            //                        li.Active = false;
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }                
-            //};
-
-            ESBootstrap.Extensions.appendChildren$1(document.body, [ESBootstrap.Fragment.op_Implicit(new ESBootstrap.Fragment([Bridge.merge(new ESBootstrap.Navbar([new ESBootstrap.NavbarHeader([new ESBootstrap.NavbarCollapseButton("navbarContent"), new ESBootstrap.NavbarBrand("#home", ["Document Fragment Test"])]), new ESBootstrap.NavbarContent("navbarContent", [Bridge.merge(new ESBootstrap.UnorderedList([Bridge.merge(new ESBootstrap.ListItem([Bridge.merge(new ESBootstrap.Anchor("#home", ["Home", new ESBootstrap.SourceOnly(["(current)"])]), {
-                setId: "home"
-            } )]), {
-                setActive: true
-            } ), new ESBootstrap.ListItem([Bridge.merge(new ESBootstrap.Anchor("#about", ["about"]), {
-                setId: "about"
-            } )])]), {
-                setId: "navBarButtonList"
-            } )])]), {
-                setNavbarLocation: ESBootstrap.NavBarLocation.Static_Top
-            } )]))]);
-
-            window.location.hash = "#home";
-        }
-    });
+    Bridge.define("ESBootstrap.Program");
 
     Bridge.define("ESBootstrap.Rule", {
         statics: {
@@ -2934,9 +2883,21 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             this.setAttribute("data-toggle", value);
         },
         getTarget: function () {
-            return this.getAttribute("data-target");
+            return this.getAttribute("target");
         },
         setTarget: function (value) {
+            this.setAttribute("target", value);
+        },
+        getHref: function () {
+            return this.getAttribute("href");
+        },
+        setHref: function (value) {
+            this.setAttribute("href", value);
+        },
+        getDataTarget: function () {
+            return this.getAttribute("data-target");
+        },
+        setDataTarget: function (value) {
             this.setAttribute("data-target", value);
         },
         getToggleModal: function () {
@@ -4624,7 +4585,7 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
             ESBootstrap.Widget.appendTypos$2(this, [new ESBootstrap.SourceOnly(["Toggle navigation"]), new ESBootstrap.IconBar(), new ESBootstrap.IconBar(), new ESBootstrap.IconBar()]);
 
             this.setToggle("collapse");
-            this.setTarget(_id);
+            this.setDataTarget(_id);
             this.getAria().setExpanded(false);
         }
     });

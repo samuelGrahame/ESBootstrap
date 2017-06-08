@@ -19,7 +19,7 @@ namespace ESBootstrap
 			AppendTypos(this, new SourceOnly("Toggle navigation"), new IconBar(), new IconBar(), new IconBar());
 
             Toggle = "collapse";
-            Target = _id;			
+            DataTarget = _id;			
             Aria.Expanded = false;
 		}
 	}

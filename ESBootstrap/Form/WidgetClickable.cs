@@ -27,8 +27,17 @@ namespace ESBootstrap
             get { return GetAttribute("data-toggle"); }
             set { SetAttribute("data-toggle", value); }
         }
-
         public string Target
+        {
+            get { return GetAttribute("target"); }
+            set { SetAttribute("target", value); }
+        }
+        public string Href
+        {
+            get { return GetAttribute("href"); }
+            set { SetAttribute("href", value); }
+        }
+        public string DataTarget
         {
             get { return GetAttribute("data-target"); }
             set { SetAttribute("data-target", value); }
