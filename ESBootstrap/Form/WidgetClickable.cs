@@ -5,17 +5,58 @@ using System.Text;
 using System.Threading.Tasks;
 using Bridge;
 using Bridge.Html5;
+using Bridge.jQuery2;
 
 namespace ESBootstrap
 {
 	public class WidgetClickable : Widget
-	{
+	{        
 		public Action<MouseEvent> OnClick { get { return this.Content.OnClick; } set { this.Content.OnClick = value; } }
-		public WidgetClickable(HTMLElement element) : base(element)
+
+        public static Modal GetModal(HTMLElement a)
+        {
+            if(a.ParentElement == null)
+            {
+                return null;
+            }
+            else
+            {
+                var modal = Widget.CastElement<Modal>(a.ParentElement);
+                if (modal.Role == "dialog")
+                {
+                    return modal;
+                }
+                else
+                {
+                    return GetModal(a.ParentElement);
+                }
+            }
+        }
+
+        [Init(InitPosition.Top)]
+        public static void Setup()
+        {
+            jQuery.Select("[data-buttonresult]").On("click", () => {
+                var x = Widget.CastElement<WidgetClickable>(jQuery.This.Get(0).As<HTMLElement>());
+                if(x != null)
+                {
+                    var modal = GetModal(x.Content);
+                    modal.DataResult = x.DataResult;
+                }
+            });            
+        }        
+
+        public WidgetClickable(HTMLElement element) : base(element)
 		{
 
 		}
-       
+
+        public string DataResult
+        {
+            get { return GetAttribute("data-buttonresult"); }
+            set { SetAttribute("data-buttonresult", value); }
+        }
+
         public string Dismiss
         {
             get { return GetAttribute("data-dismiss"); }

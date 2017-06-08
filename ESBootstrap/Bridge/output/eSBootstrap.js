@@ -1,3 +1,11 @@
+$("[data-buttonresult]").on("click", function () {
+        var x = ESBootstrap.Widget.castElement(ESBootstrap.WidgetClickable, $(this).get(0));
+        if (x != null) {
+            var modal = ESBootstrap.WidgetClickable.getModal(x.content);
+            modal.setDataResult(x.getDataResult());
+        }
+    });
+
 /**
  * @version 1.0.0.0
  * @copyright Copyright ©  2017
@@ -2208,6 +2216,18 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
         }
     });
 
+    Bridge.define("ESBootstrap.Modal.ModalResult", {
+        $kind: "enum",
+        statics: {
+            None: 0,
+            OK: 1,
+            Cancel: 2,
+            Abort: 3,
+            Yes: 4,
+            No: 5
+        }
+    });
+
     Bridge.define("ESBootstrap.NavBarLocation", {
         $kind: "enum",
         statics: {
@@ -2852,6 +2872,20 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
 
     Bridge.define("ESBootstrap.WidgetClickable", {
         inherits: [ESBootstrap.Widget],
+        statics: {
+            getModal: function (a) {
+                if (a.parentElement == null) {
+                    return null;
+                } else {
+                    var modal = ESBootstrap.Widget.castElement(ESBootstrap.Modal, a.parentElement);
+                    if (Bridge.referenceEquals(modal.getRole(), "dialog")) {
+                        return modal;
+                    } else {
+                        return ESBootstrap.WidgetClickable.getModal(a.parentElement);
+                    }
+                }
+            }
+        },
         ctor: function (element) {
             this.$initialize();
             ESBootstrap.Widget.ctor.call(this, element);
@@ -2869,6 +2903,12 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
         },
         setOnClick: function (value) {
             this.content.onclick = value;
+        },
+        getDataResult: function () {
+            return this.getAttribute("data-buttonresult");
+        },
+        setDataResult: function (value) {
+            this.setAttribute("data-buttonresult", value);
         },
         getDismiss: function () {
             return this.getAttribute("data-dismiss");
@@ -4477,12 +4517,89 @@ Bridge.assembly("ESBootstrap", function ($asm, globals) {
 
     Bridge.define("ESBootstrap.Modal", {
         inherits: [ESBootstrap.WidgetStyle],
+        statics: {
+            idhandles: 0,
+            showDialog: function (modal, modalResult) {
+                if (modalResult === void 0) { modalResult = null; }
+                if (modal == null) {
+                    return;
+                }
+
+                if (System.String.isNullOrWhiteSpace(modal.getId())) {
+                    modal.setId("__internal_Id" + ESBootstrap.Modal.idhandles);
+                    ESBootstrap.Modal.idhandles = (ESBootstrap.Modal.idhandles + 1) | 0;
+                }
+                ESBootstrap.Modal.showDialog$1(modal.getId(), modalResult);
+            },
+            showDialog$1: function (id, modalResult) {
+                if (modalResult === void 0) { modalResult = null; }
+                if (System.String.isNullOrWhiteSpace(id)) {
+                    return;
+                }
+                var modal;
+                if (System.String.startsWith(id, "#")) {
+                    modal = ESBootstrap.Widget.getWidgetById(ESBootstrap.Modal, id.substr(1));
+                } else {
+                    modal = ESBootstrap.Widget.getWidgetById(ESBootstrap.Modal, id);
+                    id = System.String.concat("#", id);
+                }
+
+                if (modal != null) {
+                    modal.setDataResult(null);
+
+                    if (!Bridge.staticEquals(modalResult, null)) {
+                        $(modal.content).on("hidden.bs.modal", function () {
+                            var $t;
+                            try {
+                                var modalResultEnum = ESBootstrap.Modal.ModalResult.None;
+                                var selected = modal.getDataResult();
+                                var i = 0;
+                                if (!System.String.isNullOrWhiteSpace(selected)) {
+                                    $t = Bridge.getEnumerator(System.Enum.getNames(ESBootstrap.Modal.ModalResult));
+                                    while ($t.moveNext()) {
+                                        var item = $t.getCurrent();
+                                        if (Bridge.referenceEquals(item.toLowerCase(), selected)) {
+                                            modalResultEnum = System.Nullable.getValue(Bridge.cast(System.Enum.getValues(ESBootstrap.Modal.ModalResult)[i], System.Int32));
+                                            break;
+                                        }
+                                        i = (i + 1) | 0;
+                                    }
+                                }
+
+                                if (!Bridge.staticEquals(modalResult, null)) {
+                                    modalResult(modalResultEnum);
+                                }
+                            }
+                            catch ($e1) {
+                                $e1 = System.Exception.create($e1);
+
+                            }
+                            $(modal.content).off("hidden.bs.modal");
+                        });
+                    }
+
+                    var button = Bridge.merge(new ESBootstrap.Button.ctor(), {
+                        setDataTarget: id,
+                        setToggleModal: true
+                    } );
+                    document.body.appendChild(ESBootstrap.Widget.op_Implicit(button));
+                    button.content.click();
+                    document.body.removeChild(ESBootstrap.Widget.op_Implicit(button));
+                }
+            }
+        },
         ctor: function (typos) {
             if (typos === void 0) { typos = []; }
 
             this.$initialize();
             ESBootstrap.WidgetStyle.ctor.call(this, "modal fade", typos);
             this.setRole("dialog");
+        },
+        getDataResult: function () {
+            return this.getAttribute("data-result");
+        },
+        setDataResult: function (value) {
+            this.setAttribute("data-result", value);
         }
     });
 
