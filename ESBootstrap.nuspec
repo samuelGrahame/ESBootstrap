@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>ESBootstrap</id>
-    <version>0.0.0.2</version>
+    <version>0.0.0.6</version>
     <title>ESBootstrap (For Bridge.Net)</title>
     <authors>SG - BL - PH</authors>
     <owners>SG - BL - PH</owners>
@@ -15,6 +15,7 @@
 	<dependencies>
 		<dependency id="Bridge" version="[15.7.0]"/>		
 		<dependency id="Bridge.Html5" version="[15.7.0]"/>
+		<dependency id="Bridge.jQuery" version="[2.9.2]"/>
 	  </dependencies>
   </metadata>
   <files>

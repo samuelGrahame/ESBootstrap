@@ -14,11 +14,16 @@ namespace ESBootstrap
 
         public CSSStyleDeclaration Style => Content.Style;
         public DOMTokenList ClassList => Content.ClassList;
+        public HTMLCollection Children => Content.Children;
+
         private Aria aria;
+
+
 
         public string Role
         {
-            get { return GetAttribute("role"); }
+            get {                
+                return GetAttribute("role"); }
             set { SetAttribute("role", value); }
         }
 
@@ -47,6 +52,7 @@ namespace ESBootstrap
 
         public void Blur()
         {
+            
             this.Content.Blur();
         }
 
@@ -84,17 +90,17 @@ namespace ESBootstrap
 			return new Widget(widget);
 		}
 
-		public static T GetWidgetById<T>(string id)
-		{
+		public static T GetWidgetById<T>(string id) where T : Widget
+        {
 			return CastElement<T>(Document.GetElementById(id));			
 		}        
 
-		public static T CastElement<T>(HTMLElement widget)
+		public static T CastElement<T>(HTMLElement widget) where T : Widget            
 		{
 			if(widget == null)
 				return default(T);
-			dynamic x = Activator.CreateInstance<T>();
-			x.content = widget;
+			var x = Activator.CreateInstance<T>();
+			x.Content = widget;
 			return x;
 		}
 		
