@@ -16,6 +16,13 @@ namespace ESBootstrap
             Role = "dialog";
         }
         private static int Idhandles = 0;
+
+
+        public void ShowDialog(Action<ModalResult> modalResult = null)
+        {
+            ShowDialog(this, modalResult);
+        }
+
         public static void ShowDialog(Modal modal, Action<ModalResult> modalResult = null)
         {
             if (modal == null)
@@ -28,11 +35,13 @@ namespace ESBootstrap
             }
             ShowDialog(modal.Id, modalResult);
         }
+
         public string DataResult
         {
             get { return GetAttribute("data-result"); }
             set { SetAttribute("data-result", value); }
         }
+
         public static void ShowDialog(string id, Action<ModalResult> modalResult = null)
         {
             if (string.IsNullOrWhiteSpace(id))
